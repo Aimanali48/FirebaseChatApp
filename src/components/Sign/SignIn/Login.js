@@ -1,5 +1,5 @@
 import React from 'react';
-import { onLoginPress } from '../../../redux/actions/action';
+import { onLoginPress } from '../../../Firebase/services/services';
 import { withRouter } from 'react-router-dom';
 
 function Login(props) {
