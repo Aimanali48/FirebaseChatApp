@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 import { myFirebase, myFirestore } from '../Firebase';
-import { loginUser } from '../../redux/actions/action';
 
 //Sign In
 export const onLoginPress = async history => {
@@ -11,14 +10,16 @@ export const onLoginPress = async history => {
     const token = result.credential.accessToken;
     const { uid, displayName, photoURL } = user;
     if (user) {
-      const result = await myFirestore
+      var specific = await myFirestore
         .collection('users')
-        .where('id', '==', uid)
-        .get();
-      const doc = result.docs.map(x => x.data());
-      console.log(...doc); //logged in user data
+        .doc(uid)
+        .get()
+        .catch(err => {
+          console.log(err);
+        });
+      console.log(specific.data());
 
-      if (!doc || doc === null || doc === undefined) {
+      if (specific.data() === undefined) {
         //this condition not working to set new user
         myFirestore
           .collection('users')
@@ -33,10 +34,12 @@ export const onLoginPress = async history => {
             localStorage.setItem('token', token);
             alert('login success');
             history.push('/main');
+          })
+          .catch(err => {
+            console.log(err);
           });
       } else {
         alert('login success');
-        getUser(doc);
         history.push('/main');
       }
     } else {
@@ -45,8 +48,4 @@ export const onLoginPress = async history => {
   } catch (err) {
     console.log(err);
   }
-};
-
-const getUser = doc => {
-  loginUser(...doc);
 };
