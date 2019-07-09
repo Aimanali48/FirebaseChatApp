@@ -19,7 +19,7 @@ export const onLoginPress = async history => {
       console.log(...doc); //logged in user data
 
       if (!doc || doc === null || doc === undefined) {
-        // Set new data since this is a new user
+        //this condition not working to set new user
         myFirestore
           .collection('users')
           .doc(uid)
