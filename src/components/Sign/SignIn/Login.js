@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
-import { onLoginPress } from '../../../Firebase/services/services';
+import React from 'react';
+import { connect } from 'react-redux';
+import { LoginUser } from '../../../redux/actions/action';
 import { withRouter } from 'react-router-dom';
 
 function Login(props) {
+  const handleLogin = () => {
+    props.LoginUser(props.history);
+  };
+
   return (
     <div className='container'>
       <br />{' '}
@@ -12,15 +17,11 @@ function Login(props) {
           <p>
             <button
               className='btn btn-block btn-gmail'
-              onClick={() => onLoginPress(props.history)}
+              onClick={() => handleLogin()}
             >
               {' '}
               <i className='fa fa-gmail' />   Login via Gmail
             </button>
-            <a href='/#' className='btn btn-block btn-github'>
-              {' '}
-              <i className='fab fa-github' /> Login via Github
-            </a>
           </p>
           <p className='divider-text'>
             <span className='bg-light'>OR</span>
@@ -68,4 +69,7 @@ function Login(props) {
   );
 }
 
-export default withRouter(Login);
+export default connect(
+  null,
+  { LoginUser }
+)(withRouter(Login));

@@ -1,6 +1,12 @@
 import React from 'react';
 import './Register.css';
-function Register() {
+import { connect } from 'react-redux';
+
+function Register(props) {
+  const handleRegister = () => {
+    console.log('registered');
+  };
+
   return (
     <div className='container'>
       <br />{' '}
@@ -9,14 +15,13 @@ function Register() {
           <h4 className='card-title mt-3 text-center'>Create Account</h4>
           <p className='text-center'>Get started with your free account</p>
           <p>
-            <a href='#' className='btn btn-block btn-gmail'>
+            <button
+              className='btn btn-block btn-gmail'
+              onClick={() => handleRegister()}
+            >
               {' '}
               <i className='fa fa-gmail' />   Login via Gmail
-            </a>
-            <a href='#' className='btn btn-block btn-github'>
-              {' '}
-              <i className='fab fa-github' /> Login via Github
-            </a>
+            </button>
           </p>
           <p className='divider-text'>
             <span className='bg-light'>OR</span>
@@ -92,4 +97,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default connect(null)(Register);
