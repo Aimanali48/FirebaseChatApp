@@ -8,7 +8,7 @@ export const getUser = uid => {
     .get();
 };
 
-export const setUser = (uid, displayName, photoURL, token) => {
+export const setUser = (uid, displayName, photoURL) => {
   return myFirestore
     .collection('users')
     .doc(uid)
