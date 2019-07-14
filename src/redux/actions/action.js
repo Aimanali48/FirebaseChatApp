@@ -1,12 +1,11 @@
 import { SET_CURRENT_USER } from './types';
 import { myFirebase, myFirestore } from '../../Firebase/Firebase';
 import firebase from 'firebase';
-import { getUser, setUser } from '../../Firebase/services/services';
+import { getUser, setUser, signIn } from '../../Firebase/services/services';
 
 export const LoginUser = history => async dispatch => {
   try {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    const result = await myFirebase.auth().signInWithPopup(provider);
+    const result = await signIn();
     const user = result.user;
     const token = result.credential.accessToken;
     const { uid, displayName, photoURL } = user;
